@@ -1,32 +1,33 @@
 ---
 # tasks file for mytomrole
 - name: install tomcat
-  yum:
-   name: tomcat
-   state: present
+  apt:
+    name: tomcat7
+    state: present
 
-- name:  copy tom config file into all nodes
+- name:  copy my tom config file into nodes
   template:
-    src:  templates/mytomconfig.j2
-    dest: /usr/share/tomcat/conf/tomcat.conf
-  notify: starttomcat
+    src: templates/mytomconfig.j2
+    dest: /etc/default/tomcat7
+  notify: restarttomcat
 
-- name:  Install Admin Packages
-  yum:
+- name: install admin packages
+  apt:
     name: "{{ item }}"
     state: present
-  with_items:
-    - tomcat-webapps
-    - tomcat-admin-webapps
+  loop:
+    - tomcat7-docs
+    - tomcat7-admin
+    - tomcat7-examples
 
-- name: coy tom user file into all nodes
+- name: copy tomuser file into nodes 
   template:
     src: templates/mytomusers.j2
-    dest: /usr/share/tomcat/conf/tomcat-users.xml
-  notify: starttomcat
+    dest: /etc/tomcat7/tomcat-users.xml
+  notify: restarttomcat
 
 - name: i want to deploy ravi java war file into webapps  
   get_url:
-    url: http://54.145.225.65:8081/artifactory/ravianskey/1/target/raviLogin-1.0.war
-    dest: /usr/share/tomcat/webapps/raviLogin-1.0.war
+    url: http://54.145.225.65:8081/artifactory/ravianskey/2/target/raviLogin-1.0.war
+    dest: /var/lib/tomcat7/webapps/raviLogin.war
     force_basic_auth: yes
