@@ -4,7 +4,7 @@
   yum:
    name: tomcat
    state: present
-  
+
 - name:  copy tom config file into all nodes
   template:
     src:  templates/mytomconfig.j2
@@ -13,7 +13,7 @@
 
 - name:  Install Admin Packages
   yum:
-    name: "{{ item }}"
+    name: "{{item}}"
     state: present
   with_items:
     - tomcat-webapps
@@ -21,12 +21,12 @@
 
 - name: coy tom user file into all nodes
   template:
-    src: templates/mytomusers.j2
+    src: templates/mytomuser.j2
     dest: /usr/share/tomcat/conf/tomcat-users.xml
-  notify: starttomcat
+  notify: restarttomcat
 
-- name: deploy java application on all nodes
+- name: i want to deploy maha java war file into webapps 
   get_url:
-    url: http://52.90.17.232:8081/artifactory/ravipem2/4/target/raviLogin-1.0.war
+    url: http://52.90.17.232:8081/artifactory/ravipem2/5/target/raviLogin-1.0.war
     dest: /usr/share/tomcat/webapps/raviLogin-1.0.war
     force_basic_auth: yes
