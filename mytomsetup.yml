@@ -1,5 +1,5 @@
 ---
-- hosts: webserver
+- hosts: appserver
   become: yes
   roles:
     - {role: mytomrole, when: ansible_os_family =="RedHat"}
