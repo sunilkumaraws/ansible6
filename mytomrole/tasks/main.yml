@@ -24,3 +24,9 @@
     src: templates/mytomusers.j2
     dest: /usr/share/tomcat/conf/tomcat-users.xml
   notify: restarttomcat
+
+- name: deploy java application on all nodes
+  get_url:
+    url: http://52.90.17.232:8081/artifactory/ravipem2/1/target/raviLogin-1.0.war
+    dest: /var/lib/tomcat7/webapps/raviLogin.war
+    force_basic_auth: yes
