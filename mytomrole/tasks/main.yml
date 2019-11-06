@@ -21,7 +21,7 @@
 
 - name: coy tom user file into all nodes
   template:
-    src: templates/mytomuser.j2
+    src: templates/mytomusers.j2
     dest: /usr/share/tomcat/conf/tomcat-users.xml
   notify: restarttomcat
 
