@@ -9,7 +9,7 @@
   template:
     src:  templates/mytomconfig.j2
     dest: /usr/share/tomcat/conf/tomcat.conf
-  notify: starttomcat
+  notify: restarttomcat
 
 - name:  Install Admin Packages
   yum:
